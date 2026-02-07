@@ -14,7 +14,7 @@ def clear():
 #   "options" -> a dictionary of options (label, target)
 menu = {
     "0": {
-        "prompt": "Welcome! Where do you want to go?",
+        "prompt": "Welcome to should I tell my crush i like them? What do you want to do?",
         "options": {
             "1": ("Go to settings", "settings"),
             "2": ("Quit program", "quit")
