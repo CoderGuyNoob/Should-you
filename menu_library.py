@@ -7,17 +7,18 @@ menu = {
         }
     },
     "0-1": {
-        "prompt": "Is your crush dating someone?",
+        "prompt": "Is your crush seeing someone?",
         "options": {
-            "1": ("Yes", "statement:Oh no! Maybe wait a bit."),  # dynamic
-            "2": ("No", "0-1-1")
+            "1": ("Yes","0-1-1"),  # dynamic
+            "2": ("No", "0-1-2"),
+            "3": ("Not sure", "statement:Find out.")  # dynamic
         }
     },
-    "0-1-1": {
-        "prompt": "Do you want to tell them you like them?",
+    "0-1-2": {
+        "prompt": "How do you know your crush?",
         "options": {
-            "1": ("Yes", "statement:Good luck! Be confident.|0"),  # fixed next menu = main menu
-            "2": ("No", "statement:Maybe wait until you’re sure.")   # dynamic
+            "1": ("In person.", "0-1-2-1"),
+            "2": ("Online.", "0-1-2-2")
         }
     }
 }
