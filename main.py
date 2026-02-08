@@ -1,5 +1,5 @@
 import os
-
+import library
 # -------- Helper function to clear the screen --------
 def clear():
     try:
@@ -18,29 +18,7 @@ def get_back_menu_id(current_id):
 # We can mark statements as:
 # "statement:<text>" -> dynamic (goes back to previous menu)
 # "statement:<text>|<fixed_next_id>" -> fixed (goes to fixed menu)
-menu = {
-    "0": {
-        "prompt": "Welcome to should I tell my crush I like them? What do you want to do?",
-        "options": {
-            "1": ("Continue", "0-1"),
-            "2": ("Quit program", "quit")
-        }
-    },
-    "0-1": {
-        "prompt": "Is your crush dating someone?",
-        "options": {
-            "1": ("Yes", "statement:Oh no! Maybe wait a bit."),  # dynamic
-            "2": ("No", "0-1-1")
-        }
-    },
-    "0-1-1": {
-        "prompt": "Do you want to tell them you like them?",
-        "options": {
-            "1": ("Yes", "statement:Good luck! Be confident.|0"),  # fixed next menu = main menu
-            "2": ("No", "statement:Maybe wait until you’re sure.")   # dynamic
-        }
-    }
-}
+
 
 # -------- MENU ENGINE --------
 current = "0"
@@ -67,15 +45,15 @@ while True:
         continue
 
     # Normal menu
-    print(f"{menu[current]['prompt']}\n")
+    print(f"{library.menu[current]['prompt']}\n")
 
     # Show options
-    for key, (label, target) in menu[current]["options"].items():
+    for key, (label, target) in library.menu[current]["options"].items():
         print(f"{key}. {label}")
 
     # Back button
     if current != "0":
-        last_num = max(int(k) for k in menu[current]["options"].keys())
+        last_num = max(int(k) for k in library.menu[current]["options"].keys())
         back_num = str(last_num + 1)
         back_id = get_back_menu_id(current)
         print(f"{back_num}. Back")
@@ -89,8 +67,8 @@ while True:
         continue
 
     # Normal option handling
-    if choice in menu[current]["options"]:
-        target = menu[current]["options"][choice][1]
+    if choice in library.menu[current]["options"]:
+        target = library.menu[current]["options"][choice][1]
         previous_menu = current  # remember where we came from
         if target == "quit":
             clear()
