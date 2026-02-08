@@ -1,5 +1,5 @@
 import os
-import library
+import menu_library
 # -------- Helper function to clear the screen --------
 def clear():
     try:
@@ -45,15 +45,15 @@ while True:
         continue
 
     # Normal menu
-    print(f"{library.menu[current]['prompt']}\n")
+    print(f"{menu_library.menu[current]['prompt']}\n")
 
     # Show options
-    for key, (label, target) in library.menu[current]["options"].items():
+    for key, (label, target) in menu_library.menu[current]["options"].items():
         print(f"{key}. {label}")
 
     # Back button
     if current != "0":
-        last_num = max(int(k) for k in library.menu[current]["options"].keys())
+        last_num = max(int(k) for k in menu_library.menu[current]["options"].keys())
         back_num = str(last_num + 1)
         back_id = get_back_menu_id(current)
         print(f"{back_num}. Back")
@@ -67,8 +67,8 @@ while True:
         continue
 
     # Normal option handling
-    if choice in library.menu[current]["options"]:
-        target = library.menu[current]["options"][choice][1]
+    if choice in menu_library.menu[current]["options"]:
+        target = menu_library.menu[current]["options"][choice][1]
         previous_menu = current  # remember where we came from
         if target == "quit":
             clear()
