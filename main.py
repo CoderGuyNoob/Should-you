@@ -1,7 +1,10 @@
+# main.py
+
 import os
-import menu_library
+
 # -------- Helper function to clear the screen --------
 def clear():
+    """Clear the terminal screen (cross-platform)."""
     try:
         os.system('cls' if os.name == 'nt' else 'clear')
     except:
@@ -9,16 +12,27 @@ def clear():
 
 # -------- Helper to go back in menu hierarchy --------
 def get_back_menu_id(current_id):
+    """Return the parent menu ID (strip last dash section)."""
     if '-' in current_id:
         return '-'.join(current_id.split('-')[:-1])
     else:
         return current_id
 
-# -------- MENU DATA --------
-# We can mark statements as:
-# "statement:<text>" -> dynamic (goes back to previous menu)
-# "statement:<text>|<fixed_next_id>" -> fixed (goes to fixed menu)
+# -------- Ask user if in high school --------
+clear()
+print("Welcome! Let's figure out your scenario.\n")
+print("1. I am in high school")
+print("2. I am not in high school\n")
 
+choice = input("Enter your choice: ").strip()
+
+if choice == "1":
+    import menu_hs as menu_library  # high school menu
+elif choice == "2":
+    import menu_adult as menu_library  # adult menu (full version)
+else:
+    print("Invalid choice. Defaulting to high school version.")
+    import menu_hs as menu_library
 
 # -------- MENU ENGINE --------
 current = "0"
@@ -29,15 +43,15 @@ while True:
 
     # Handle statements
     if current.startswith("statement:"):
-        # Check if there is a fixed next menu
+        # Check if statement has a fixed next menu (format: statement:TEXT|ID)
         if "|" in current:
-            text, fixed_next = current.split("|")
+            text, fixed_next = current.split("|", 1)
             text = text.replace("statement:", "")
             print(text)
             input("\nPress Enter to continue...")
-            current = fixed_next  # go to fixed menu
+            current = fixed_next
         else:
-            # dynamic statement
+            # Dynamic statement: return to previous menu
             text = current.replace("statement:", "")
             print(text)
             input("\nPress Enter to go back...")
@@ -45,31 +59,33 @@ while True:
         continue
 
     # Normal menu
-    print(f"{menu_library.menu[current]['prompt']}\n")
+    menu_data = menu_library.menu[current]
+    print(f"{menu_data['prompt']}\n")
 
-    # Show options
-    for key, (label, target) in menu_library.menu[current]["options"].items():
+    # Display options
+    for key, (label, target) in menu_data["options"].items():
         print(f"{key}. {label}")
 
     # Back button
     if current != "0":
-        last_num = max(int(k) for k in menu_library.menu[current]["options"].keys())
+        # last option + 1
+        last_num = max(int(k) for k in menu_data["options"].keys())
         back_num = str(last_num + 1)
         back_id = get_back_menu_id(current)
         print(f"{back_num}. Back")
 
     # Get user input
-    choice = input("\nEnter your choice: ").strip()
+    user_choice = input("\nEnter your choice: ").strip()
 
-    # Back button handling
-    if current != "0" and choice == back_num:
+    # Handle back button
+    if current != "0" and user_choice == back_num:
         current = back_id
         continue
 
-    # Normal option handling
-    if choice in menu_library.menu[current]["options"]:
-        target = menu_library.menu[current]["options"][choice][1]
-        previous_menu = current  # remember where we came from
+    # Handle normal option
+    if user_choice in menu_data["options"]:
+        target = menu_data["options"][user_choice][1]
+        previous_menu = current
         if target == "quit":
             clear()
             break
