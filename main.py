@@ -14,9 +14,8 @@ def clear():
 def get_back_menu_id(current_id):
     """Return the parent menu ID (strip last dash section)."""
     if '-' in current_id:
-        return '-'.join(current_id.split('-')[:-1])
-    else:
-        return current_id
+        return current_id.rsplit('-', 1)[0]
+    return current_id
 
 # -------- Choose version --------
 clear()
@@ -75,18 +74,17 @@ while True:
         print(f"{key}. {label}")
 
     # Back button
+    back_num = None
     if current != "0":
-        last_num = max(int(k) for k in menu_data["options"].keys())
-        back_num = str(last_num + 1)
-        back_id = get_back_menu_id(current)
+        back_num = str(max(int(k) for k in menu_data["options"].keys()) + 1)
         print(f"{back_num}. Back")
 
     # Input
     user_choice = input("\nEnter your choice: ").strip()
 
     # Back handling
-    if current != "0" and user_choice == back_num:
-        current = back_id
+    if back_num and user_choice == back_num:
+        current = get_back_menu_id(current)
         continue
 
     # Normal option
