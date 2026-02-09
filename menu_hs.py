@@ -15,7 +15,7 @@ menu = {
         "options": {
             "1": ("Yes", "0-1-yes"),
             "2": ("No", "0-1-no"),
-            "3": ("I don't know", "statement:Find out first")
+            "3": ("I don't know", "statement:Find out first|quit")
         }
     },
 
@@ -34,7 +34,7 @@ menu = {
         "options": {
             "1": ("Through friends", "0-1-no-inperson-friends"),
             "2": ("Through school", "0-1-no-inperson-school"),
-            "3": ("Third space (coffee shop, library, etc.)", "statement:Tell them, it's low risk")
+            "3": ("Third space (coffee shop, library, etc.)", "statement:Tell them, it's low risk|quit")
         }
     },
 
@@ -50,8 +50,8 @@ menu = {
     "0-1-no-inperson-friends-yes": {
         "prompt": "Are you in a friend group with them?",
         "options": {
-            "1": ("Yes", "statement:Tread carefully, could be awkward but tell them if you want clarity"),
-            "2": ("No", "statement:You should tell them, expect some awkwardness")
+            "1": ("Yes", "statement:Tread carefully, could be awkward but tell them if you want clarity|quit"),
+            "2": ("No", "statement:You should tell them, expect some awkwardness|quit")
         }
     },
 
@@ -66,8 +66,8 @@ menu = {
     "0-1-no-inperson-friends-sibling": {
         "prompt": "Do you like them just because they're your friend's sibling?",
         "options": {
-            "1": ("Yes", "statement:Don't tell them, you'll phase out of it"),
-            "2": ("No", "statement:Tell them, but be prepared for awkwardness with your friend")
+            "1": ("Yes", "statement:Don't tell them, you'll phase out of it|quit"),
+            "2": ("No", "statement:Tell them, but be prepared for awkwardness with your friend|quit")
         }
     },
 
@@ -76,15 +76,15 @@ menu = {
         "prompt": "Do you see your crush often at school?",
         "options": {
             "1": ("Yes", "0-1-no-inperson-school-yes"),
-            "2": ("No", "statement:Tell them, nothing to risk")
+            "2": ("No", "statement:Tell them, nothing to risk|quit")
         }
     },
 
     "0-1-no-inperson-school-yes": {
         "prompt": "Do you like them because of proximity or genuinely?",
         "options": {
-            "1": ("Only because of forced proximity", "statement:Don't tell them"),
-            "2": ("Genuine feelings", "statement:Tell them, best case you succeed, worst case awkward")
+            "1": ("Only because of forced proximity", "statement:Don't tell them|quit"),
+            "2": ("Genuine feelings", "statement:Tell them, best case you succeed, worst case awkward|quit")
         }
     },
 
@@ -92,7 +92,7 @@ menu = {
     "0-1-no-online": {
         "prompt": "Is your crush a celebrity?",
         "options": {
-            "1": ("Yes", "statement:You can tell them, but they won't notice"),
+            "1": ("Yes", "statement:You can tell them, but they won't notice|quit"),
             "2": ("No", "0-1-no-online-real")
         }
     },
@@ -100,7 +100,7 @@ menu = {
     "0-1-no-online-real": {
         "prompt": "Did you meet them on a dating app?",
         "options": {
-            "1": ("Yes", "statement:Tell them, they probably know"),
+            "1": ("Yes", "statement:Tell them, they probably know|quit"),
             "2": ("No", "0-1-no-online-meet")
         }
     },
@@ -108,8 +108,8 @@ menu = {
     "0-1-no-online-meet": {
         "prompt": "Have you met them in real life?",
         "options": {
-            "1": ("Yes", "statement:Tell them"),
-            "2": ("No", "statement:You can tell them, but be prepared that reality may differ")
+            "1": ("Yes", "statement:Tell them|quit"),
+            "2": ("No", "statement:You can tell them, but be prepared that reality may differ|quit")
         }
     },
 
@@ -118,7 +118,7 @@ menu = {
         "prompt": "How is your crush involved with someone?",
         "options": {
             "1": ("Casually dating", "0-1-yes-casual"),
-            "2": ("In a serious relationship", "statement:Don't tell them, homewrecker")
+            "2": ("In a serious relationship", "statement:Don't tell them, they're taken|quit")
         }
     },
 
@@ -126,8 +126,8 @@ menu = {
     "0-1-yes-casual": {
         "prompt": "Is it actually casual and with one person?",
         "options": {
-            "1": ("Yes", "statement:Proceed with caution, might work"),
-            "2": ("No", "statement:Don't tell them, avoid complications")
+            "1": ("Yes", "statement:Proceed with caution, might work|quit"),
+            "2": ("No", "statement:Don't tell them, avoid complications|quit")
         }
     }
 }
